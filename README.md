@@ -21,6 +21,24 @@ Visit [label.deepcell.org](https://label.deepcell.org) to create a project from 
 The `create_project` function has been updated in the `@bp.route('/api/project', methods=['POST'])` to handle project creation via URL inputs for images and optionally labels. Here's the updated function:
 
 ```python
+@bp.route('/api/project/<project_id>', methods=['GET'])
+def get_project(project_id):
+    start = timeit.default_timer()
+    project = Project.get(project_id)
+    if not project:
+        return abort(404, description=f'Project {project_id} not found')
+    file_path = os.path.join('/rsrch5/home/plm/yshokrollahi/project4/apps/deepcell-label/backend', f'{project_id}.zip')  # Local path for files
+    if os.path.exists(file_path):
+        return send_file(
+            file_path,
+            mimetype='application/zip',
+            as_attachment=True,
+            attachment_filename=f'{project_id}.zip'
+        )
+    else:
+        return abort(404, description='File not found')
+
+
 @bp.route('/api/project', methods=['POST'])
 def create_project():
     """
