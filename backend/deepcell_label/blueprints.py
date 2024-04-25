@@ -43,21 +43,24 @@ def handle_exception(error):
     return jsonify({'error': str(error)}), 500
 
 
-@bp.route('/api/project/<project>', methods=['GET'])
-def get_project(project):
+@bp.route('/api/project/<project_id>', methods=['GET'])
+def get_project(project_id):
     start = timeit.default_timer()
-    project = Project.get(project)
+    project = Project.get(project_id)
     if not project:
-        return abort(404, description=f'project {project} not found')
-    bucket = request.args.get('bucket', default=project.bucket)
-    s3 = boto3.client('s3')
-    data = io.BytesIO()
-    s3.download_fileobj(bucket, project.key, data)
-    data.seek(0)
-    current_app.logger.info(
-        f'Loaded project {project.key} from {bucket} in {timeit.default_timer() - start} s.',
-    )
-    return send_file(data, mimetype='application/zip')
+        return abort(404, description=f'Project {project_id} not found')
+    file_path = os.path.join('/rsrch5/home/plm/yshokrollahi/project4/apps/deepcell-label/backend', f'{project_id}.zip')  # Local path for files
+    if os.path.exists(file_path):
+        return send_file(
+            file_path,
+            mimetype='application/zip',
+            as_attachment=True,
+            attachment_filename=f'{project_id}.zip'
+        )
+    else:
+        return abort(404, description='File not found')
+
+
 
 
 @bp.route('/api/project', methods=['POST'])
