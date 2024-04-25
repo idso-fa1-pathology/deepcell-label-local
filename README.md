@@ -93,8 +93,7 @@ def create_project():
     )
     return jsonify(project.project)
 
-# ------------------------------------------------------------------------------
-
+```
 
 ## New Modification in `model.py` File
 
