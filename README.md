@@ -5,7 +5,7 @@ To run DeepCell Label locally, you will set up the client and the server from yo
 To start, clone the repository with:
 
 ```bash
-git clone https://github.com/vanvalenlab/deepcell-label.git
+git clone https://github.com/idso-fa1-pathology/deepcell-label-local.git
 ```
 
 and open the repository with:
