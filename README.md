@@ -15,7 +15,7 @@ cd deepcell-label
 ```
 ## Assign local database
 
-in the blueprints.py file in the 
+in the blueprints.py file in the backend/deepcell/ change the folder as database path you want, 
 
 ## Configuring project size
 
