@@ -13,6 +13,9 @@ and open the repository with:
 ```bash
 cd deepcell-label
 ```
+## Assign local database
+
+in the blueprints.py file in the 
 
 ## Configuring project size
 
